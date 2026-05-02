@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aynia Natural</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ── */
+    :root {
+      --rosa:      #F5E8E2;
+      --rosa-med:  #EDD5CC;
+      --rosa-osc:  #D4A898;
+      --cafe:      #6B3E2E;
+      --cafe-light:#9B7060;
+      --verde:     #7A9E6E;
+      --verde-osc: #4A7260;
+      --crema:     #FDF6F2;
+      --crema-osc: #F0E4DC;
+      --borde:     #E8D5CC;
+      --texto:     #3D2318;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--crema);
+      color: var(--texto);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--crema);
+      border-bottom: 1px solid var(--borde);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo img {
+      height: 56px;
+      width: 56px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .logo-text .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--cafe);
+      line-height: 1;
+    }
+
+    .logo-text .sub {
+      font-size: 9px;
+      color: var(--verde);
+      letter-spacing: 0.2em;
+      margin-top: 3px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .cart-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 1px solid var(--borde);
+      border-radius: 50px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      color: var(--cafe);
+      transition: background 0.2s;
+    }
+
+    .cart-btn:hover { background: var(--rosa); }
+
+    .cart-count {
+      background: var(--cafe);
+      color: var(--crema);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      transition: transform 0.2s;
+    }
+
+    .cart-count.bump { transform: scale(1.4); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--rosa);
+      padding: 56px 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-text { max-width: 520px; }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      color: var(--verde);
+      letter-spacing: 0.16em;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--cafe);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero-title em { color: var(--verde-osc); font-style: italic; }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--cafe-light);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      max-width: 400px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cafe);
+      color: var(--crema);
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      padding: 13px 28px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .hero-cta:hover { background: var(--verde-osc); }
+
+    .hero-deco {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: var(--rosa-med);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hero-deco-inner {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--rosa-osc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .leaf {
+      width: 44px;
+      height: 60px;
+      background: var(--verde);
+      border-radius: 50% 0 50% 0;
+    }
+
+    /* ── CATALOG ── */
+    .catalog-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 32px;
+    }
+
+    .catalog-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .catalog-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--cafe);
+    }
+
+    .catalog-hint {
+      font-size: 12px;
+      color: var(--cafe-light);
+      margin-bottom: 28px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--rosa-osc);
+    }
+
+    .product-card.empty-card {
+      border: 1.5px dashed var(--borde);
+      background: var(--crema);
+    }
+
+    .product-card.empty-card:hover { transform: none; border-color: var(--borde); }
+
+    .card-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-img-placeholder {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-img-placeholder .leaf-sm {
+      width: 22px;
+      height: 30px;
+      background: var(--crema);
+      border-radius: 50% 0 50% 0;
+    }
+
+    .added-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--verde);
+      color: white;
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .added-badge.show { opacity: 1; transform: scale(1); }
+
+    .card-body { padding: 16px; }
+
+    .card-cat {
+      font-size: 10px;
+      color: var(--verde);
+      letter-spacing: 0.12em;
+      margin-bottom: 5px;
+    }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: var(--cafe);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--cafe-light);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--cafe);
+    }
+
+    .pedir-btn {
+      background: var(--cafe);
+      color: var(--crema);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      padding: 8px 16px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .pedir-btn:hover { background: var(--verde-osc); }
+    .pedir-btn:active { transform: scale(0.96); }
+    .pedir-btn.added { background: var(--verde); }
+
+    .empty-placeholder {
+      height: 180px;
+      background: var(--crema-osc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .plus-icon {
+      font-size: 28px;
+      color: var(--rosa-osc);
+      font-weight: 200;
+    }
+
+    .empty-label {
+      padding: 16px;
+      font-size: 12px;
+      color: #C4A098;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ── NOTE BANNER ── */
+    .note-banner {
+      background: var(--rosa-med);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .note-icon {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cafe);
+      flex-shrink: 0;
+    }
+
+    .note-text {
+      font-size: 13px;
+      color: var(--cafe);
+      line-height: 1.6;
+    }
+
+    /* ── CTA WHATSAPP ── */
+    .cta-section {
+      background: var(--cafe);
+      padding: 36px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--crema);
+      margin-bottom: 6px;
+    }
+
+    .cta-sub { font-size: 13px; color: var(--rosa-osc); }
+
+    .wsp-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--verde);
+      color: white;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      padding: 14px 28px;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .wsp-btn:hover { background: var(--verde-osc); }
+
+    .wsp-icon {
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wsp-icon span { font-size: 12px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--rosa);
+      border-top: 1px solid var(--borde);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--cafe);
+    }
+
+    .footer-num { font-size: 12px; color: var(--cafe-light); }
+
+    /* ── CART DRAWER ── */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(61, 35, 24, 0.35);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 380px;
+      max-width: 95vw;
+      height: 100vh;
+      background: var(--crema);
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--borde);
+    }
+
+    .cart-drawer.open { transform: translateX(0); }
+
+    .drawer-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--borde);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--cafe);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 22px;
+      color: var(--cafe-light);
+      line-height: 1;
+      padding: 4px;
+    }
+
+    .close-btn:hover { color: var(--cafe); }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--cafe-light);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--borde);
+      animation: slideIn 0.25s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .cart-item-color {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-item-info { flex: 1; }
+
+    .cart-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      color: var(--cafe);
+      margin-bottom: 2px;
+    }
+
+    .cart-item-price { font-size: 13px; color: var(--cafe-light); }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--borde);
+      background: none;
+      cursor: pointer;
+      font-size: 15px;
+      color: var(--cafe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .qty-btn:hover { background: var(--rosa); }
+
+    .qty-num { font-size: 14px; color: var(--cafe); min-width: 16px; text-align: center; }
+
+    /* ── MESSAGE BOX ── */
+    .drawer-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--borde);
+      background: var(--crema);
+    }
+
+    .message-box {
+      background: var(--rosa);
+      border: 1px solid var(--borde);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .message-box.visible { display: block; }
+
+    .message-label {
+      font-size: 10px;
+      color: var(--verde-osc);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .message-text {
+      font-size: 13px;
+      color: var(--cafe);
+      line-height: 1.7;
+      white-space: pre-line;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .copy-btn {
+      width: 100%;
+      background: var(--verde);
+      color: white;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      padding: 10px;
+      border-radius: 2px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .copy-btn:hover { background: var(--verde-osc); }
+    .copy-btn.copied { background: var(--cafe); }
+
+    .comprar-btn {
+      width: 100%;
+      background: var(--cafe);
+      color: var(--crema);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      padding: 14px;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s;
+    }
+
+    .comprar-btn:hover { background: var(--verde-osc); }
+    .comprar-btn:disabled { opacity: 0.4; cursor: default; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 14px 16px; }
+      .hero { flex-direction: column; padding: 36px 16px 32px; text-align: center; }
+      .hero-deco { width: 120px; height: 120px; }
+      .hero-deco-inner { width: 72px; height: 72px; }
+      .leaf { width: 28px; height: 38px; }
+      .hero-desc { margin: 0 auto 24px; }
+      .catalog-section { padding: 36px 16px; }
+      .cta-section { flex-direction: column; text-align: center; padding: 32px 16px; }
+      .note-banner { padding: 14px 16px; }
+      footer { padding: 16px; flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="Aynia Natural logo" />
+      <div class="logo-text">
+        <div class="name">aynia</div>
+        <div class="sub">N A T U R A L</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Mi pedido
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section style="background: var(--rosa);">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Productos Natura · Lima, Perú</div>
+        <h1 class="hero-title">Cuidado natural,<br><em>hecho con amor</em></h1>
+        <p class="hero-desc">Vendo productos Natura originales. Revisa el catálogo, agrega lo que te guste y me escribes por WhatsApp para coordinar.</p>
+        <a href="#catalogo" class="hero-cta">Ver productos</a>
+      </div>
+      <div class="hero-deco">
+        <div class="hero-deco-inner">
+          <div class="leaf"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CATALOG ── -->
+  <section class="catalog-section" id="catalogo">
+    <div class="catalog-header">
+      <h2 class="catalog-title">Mis productos</h2>
+    </div>
+    <p class="catalog-hint">Agrega lo que quieras a tu pedido y luego me escribes por WhatsApp</p>
+
+    <div class="products-grid" id="products-grid">
+      <!-- Los productos se generan con JS -->
+    </div>
+  </section>
+
+  <!-- ── NOTE ── -->
+  <div class="note-banner">
+    <div class="note-icon"></div>
+    <div class="note-text">Los pedidos se coordinan por WhatsApp. Te cuento disponibilidad y cómo hacerte llegar tu producto.</div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div>
+      <div class="cta-title">¿Te interesa algo?</div>
+      <div class="cta-sub">Escríbeme y te respondo enseguida · +51 996 138 964</div>
+    </div>
+    <a href="https://wa.me/51996138964" target="_blank" class="wsp-btn">
+      <div class="wsp-icon"><span>💬</span></div>
+      Escribir por WhatsApp
+    </a>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">aynia natural</div>
+    <div class="footer-num">+51 996 138 964</div>
+  </footer>
+
+  <!-- ── CART DRAWER ── -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">Mi pedido</div>
+      <button class="close-btn" onclick="toggleCart()">×</button>
+    </div>
+
+    <div class="drawer-body" id="drawer-body">
+      <div class="cart-empty" id="cart-empty">
+        Aún no agregaste nada.<br>Explora el catálogo y agrega<br>lo que te guste ✿
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="message-box" id="message-box">
+        <div class="message-label">COPIA ESTE MENSAJE Y ENVÍAMELO</div>
+        <div class="message-text" id="message-text"></div>
+        <button class="copy-btn" id="copy-btn" onclick="copyMessage()">Copiar mensaje</button>
+      </div>
+
+      <button class="comprar-btn" id="comprar-btn" onclick="generarMensaje()" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.13 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Preparar mensaje de WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ── PRODUCTOS ──────────────────────────────────────────────────
+    // Para agregar un producto, copia un bloque y rellena los datos.
+    // "img" puede ser una URL de imagen o déjala vacía ("") para el placeholder.
+    // "color" es el color de fondo del placeholder (en hex).
+
+    const PRODUCTOS = [
+      {
+        id: 1,
+        nombre: "Ekos Murumuru Body Butter",
+        categoria: "Cuerpo",
+        descripcion: "Manteca corporal con ingredientes amazónicos de murumuru. Nutrición profunda. 200g",
+        precio: 79.90,
+        img: "",
+        color: "#F0DDD6"
+      },
+      {
+        id: 2,
+        nombre: "Perfume Natura Una",
+        categoria: "Fragancias",
+        descripcion: "Fragancia oriental floral con rosas turcas, sándalo y vainilla bourbon. 75ml",
+        precio: 145.00,
+        img: "",
+        color: "#E4EDDE"
+      },
+      {
+        id: 3,
+        nombre: "Chronos Gel Hidratante",
+        categoria: "Rostro",
+        descripcion: "Gel antienvejecimiento con activos naturales. Reduce líneas finas. 40g",
+        precio: 112.00,
+        img: "",
+        color: "#EDE4D8"
+      },
+      // ── SLOTS VACÍOS (puedes reemplazarlos con productos reales) ──
+      { id: 4, vacio: true },
+      { id: 5, vacio: true },
+      { id: 6, vacio: true },
+    ];
+
+    // ── CARRITO ────────────────────────────────────────────────────
+    let carrito = [];
+
+    function renderProductos() {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+      PRODUCTOS.forEach(p => {
+        if (p.vacio) {
+          grid.innerHTML += `
+            <div class="product-card empty-card">
+              <div class="empty-placeholder"><div class="plus-icon">+</div></div>
+              <div class="empty-label">Próximo producto<br>¡pronto disponible!</div>
+            </div>`;
+        } else {
+          const imgContent = p.img
+            ? `<img src="${p.img}" alt="${p.nombre}" />`
+            : `<div class="card-img-placeholder" style="background:${p.color}"><div class="leaf-sm"></div></div>`;
+          grid.innerHTML += `
+            <div class="product-card" id="card-${p.id}">
+              <div class="card-img" style="background:${p.img ? '#eee' : p.color}">
+                ${imgContent}
+                <div class="added-badge" id="badge-${p.id}">✓ Agregado</div>
+              </div>
+              <div class="card-body">
+                <div class="card-cat">${p.categoria.toUpperCase()}</div>
+                <div class="card-name">${p.nombre}</div>
+                <div class="card-desc">${p.descripcion}</div>
+                <div class="card-footer">
+                  <div class="card-price">S/ ${p.precio.toFixed(2)}</div>
+                  <button class="pedir-btn" id="btn-${p.id}" onclick="agregarAlCarrito(${p.id})">Pedir</button>
+                </div>
+              </div>
+            </div>`;
+        }
+      });
+    }
+
+    function agregarAlCarrito(id) {
+      const producto = PRODUCTOS.find(p => p.id === id);
+      if (!producto || producto.vacio) return;
+
+      const existente = carrito.find(i => i.id === id);
+      if (existente) {
+        existente.cantidad++;
+      } else {
+        carrito.push({ ...producto, cantidad: 1 });
+      }
+
+      // Feedback visual
+      const badge = document.getElementById(`badge-${id}`);
+      const btn   = document.getElementById(`btn-${id}`);
+      badge.classList.add('show');
+      btn.classList.add('added');
+      btn.textContent = '✓ Agregado';
+      setTimeout(() => { badge.classList.remove('show'); }, 1800);
+
+      actualizarContador();
+      renderDrawer();
+      document.getElementById('message-box').classList.remove('visible');
+
+      // Abrir carrito automáticamente
+      if (!document.getElementById('cart-drawer').classList.contains('open')) {
+        toggleCart();
+      }
+    }
+
+    function cambiarCantidad(id, delta) {
+      const idx = carrito.findIndex(i => i.id === id);
+      if (idx === -1) return;
+      carrito[idx].cantidad += delta;
+      if (carrito[idx].cantidad <= 0) {
+        carrito.splice(idx, 1);
+        // Resetear botón
+        const btn = document.getElementById(`btn-${id}`);
+        if (btn) { btn.classList.remove('added'); btn.textContent = 'Pedir'; }
+      }
+      actualizarContador();
+      renderDrawer();
+      document.getElementById('message-box').classList.remove('visible');
+    }
+
+    function actualizarContador() {
+      const total = carrito.reduce((s, i) => s + i.cantidad, 0);
+      const el = document.getElementById('cart-count');
+      el.textContent = total;
+      el.classList.add('bump');
+      setTimeout(() => el.classList.remove('bump'), 200);
+      document.getElementById('comprar-btn').disabled = carrito.length === 0;
+    }
+
+    function renderDrawer() {
+      const body  = document.getElementById('drawer-body');
+      const empty = document.getElementById('cart-empty');
+
+      if (carrito.length === 0) {
+        body.innerHTML = '';
+        body.appendChild(empty);
+        empty.style.display = 'block';
+        return;
+      }
+
+      const colors = ['#F0DDD6','#E4EDDE','#EDE4D8','#D6E8DA','#EDD5CC'];
+      body.innerHTML = carrito.map((item, i) => `
+        <div class="cart-item">
+          <div class="cart-item-color" style="background:${colors[i % colors.length]}">
+            <div style="width:16px;height:22px;background:var(--verde);border-radius:50% 0 50% 0;opacity:0.6;"></div>
+          </div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.nombre}</div>
+            <div class="cart-item-price">S/ ${item.precio.toFixed(2)} c/u</div>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="cambiarCantidad(${item.id}, -1)">−</button>
+            <span class="qty-num">${item.cantidad}</span>
+            <button class="qty-btn" onclick="cambiarCantidad(${item.id}, +1)">+</button>
+          </div>
+        </div>
+      `).join('');
+
+      const total = carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+      body.innerHTML += `
+        <div style="padding: 16px 0 4px; display:flex; justify-content:space-between; align-items:baseline;">
+          <span style="font-size:13px; color:var(--cafe-light);">Total estimado</span>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--cafe);">S/ ${total.toFixed(2)}</span>
+        </div>
+        <div style="font-size:11px; color:var(--cafe-light); margin-bottom:4px;">*El precio final se confirma por WhatsApp</div>
+      `;
+    }
+
+    function generarMensaje() {
+      if (carrito.length === 0) return;
+
+      const lineas = carrito.map(item => {
+        const subtotal = (item.precio * item.cantidad).toFixed(2);
+        if (item.cantidad === 1) {
+          return `• ${item.nombre} — S/ ${item.precio.toFixed(2)}`;
+        } else {
+          return `• ${item.nombre} x${item.cantidad} — S/ ${subtotal}`;
+        }
+      });
+
+      const total = carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+
+      const mensaje =
+        `Hola! Me interesa hacer un pedido:\n\n` +
+        lineas.join('\n') +
+        `\n\nTotal estimado: S/ ${total.toFixed(2)}\n\n¿Cómo coordinamos? 😊`;
+
+      document.getElementById('message-text').textContent = mensaje;
+      document.getElementById('message-box').classList.add('visible');
+      document.getElementById('copy-btn').textContent = 'Copiar mensaje';
+      document.getElementById('copy-btn').classList.remove('copied');
+
+      // Scroll al footer del drawer
+      document.getElementById('cart-drawer').scrollTop = 9999;
+    }
+
+    function copyMessage() {
+      const texto = document.getElementById('message-text').textContent;
+      navigator.clipboard.writeText(texto).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = '¡Copiado! Ahora pégalo en WhatsApp';
+        btn.classList.add('copied');
+      });
+    }
+
+    function toggleCart() {
+      const drawer  = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+
+    // ── INIT ──
+    renderProductos();
+    actualizarContador();
+  </script>
+</body>
+</html>
