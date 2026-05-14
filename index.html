@@ -806,7 +806,7 @@
 
         PRODUCTOS = filas
           .map(fila => {
-            cconst [id, nombre, categoria, descripcion, precio, img, activo] = fila.split('\t');
+            const [id, nombre, categoria, descripcion, precio, img, activo] = fila.split('\t');
             return {
               id: Number(id),
               nombre: nombre?.trim(),
@@ -814,13 +814,14 @@
               descripcion: descripcion?.trim(),
               precio: parseFloat(precio),
               img: img?.trim(),
-              color: color?.trim() || '#F0DDD6',
+              color: '#F0DDD6',
               activo: activo?.trim()
             };
           })
           .filter(p => p.activo?.toLowerCase().trim() === 'si'); // solo muestra los activos
 
-        cargarProductos();
+        renderProductos();  
+        actualizarContador();
       } catch (e) {
         console.error('Error cargando productos:', e);
       }
