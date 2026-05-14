@@ -776,8 +776,9 @@
     <div class="drawer-footer">
       <div class="message-box" id="message-box">
         <div class="message-label">COPIA ESTE MENSAJE Y ENVÍAMELO</div>
-        <div class="message-text" id="message-text"></div>
-        <button class="copy-btn" id="copy-btn" onclick="copyMessage()">Copiar mensaje</button>
+        <div class="message-text" id="message-text" style="display:none;"></div>
+        <button class="copy-btn" id="copy-btn" onclick="copyMessage()">Enviar por WhatsApp →</button>
+        <button class="copy-btn" id="ver-btn" onclick="toggleVerMensaje()" style="background:var(--cafe); margin-top:6px;">Ver mensaje antes de enviar</button>
       </div>
 
       <button class="comprar-btn" id="comprar-btn" onclick="generarMensaje()" disabled>
@@ -986,11 +987,20 @@
 
     function copyMessage() {
       const texto = document.getElementById('message-text').textContent;
-      navigator.clipboard.writeText(texto).then(() => {
-        const btn = document.getElementById('copy-btn');
-        btn.textContent = '¡Copiado! Ahora pégalo en WhatsApp';
-        btn.classList.add('copied');
-      });
+      const encoded = encodeURIComponent(texto);
+      window.open('https://wa.me/51996138964?text=' + encoded, '_blank');
+    }
+
+    function toggleVerMensaje() {
+      const txt = document.getElementById('message-text');
+      const btn = document.getElementById('ver-btn');
+      if (txt.style.display === 'none') {
+        txt.style.display = 'block';
+        btn.textContent = 'Ocultar mensaje';
+      } else {
+        txt.style.display = 'none';
+        btn.textContent = 'Ver mensaje antes de enviar';
+      }
     }
 
     function toggleCart() {
@@ -1004,5 +1014,27 @@
     renderProductos();
     actualizarContador();
   </script>
+
+  <!-- Botón flotante WhatsApp -->
+<a href="https://wa.me/51996138964" target="_blank" id="wsp-float" style="
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 54px;
+  height: 54px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  z-index: 999;
+  transition: transform 0.2s;
+" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.76 1.8 6.76L2 30l7.44-1.76A13.93 13.93 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.4c-2.18 0-4.22-.6-5.96-1.64l-.42-.26-4.42 1.04 1.08-4.3-.28-.44A11.34 11.34 0 014.6 16C4.6 9.7 9.7 4.6 16 4.6S27.4 9.7 27.4 16 22.3 27.4 16 27.4zm6.24-8.5c-.34-.17-2-.98-2.3-1.1-.32-.1-.54-.17-.78.18-.22.34-.88 1.1-1.08 1.32-.2.22-.4.24-.74.08-.34-.18-1.44-.52-2.74-1.66-1.02-.9-1.7-2-1.9-2.34-.2-.34-.02-.52.14-.7.16-.14.34-.38.52-.56.18-.18.22-.32.34-.54.1-.22.06-.42-.02-.58-.08-.18-.78-1.88-1.06-2.56-.28-.68-.56-.58-.78-.6h-.66c-.22 0-.58.08-.88.42-.3.32-1.14 1.12-1.14 2.72s1.16 3.16 1.32 3.38c.18.22 2.28 3.48 5.52 4.74.78.3 1.38.48 1.84.62.78.22 1.48.2 2.04.12.62-.1 1.92-.78 2.18-1.54.28-.76.28-1.4.2-1.54-.08-.14-.3-.22-.64-.38z"/>
+  </svg>
+</a>
+
 </body>
 </html>
