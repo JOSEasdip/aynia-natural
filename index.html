@@ -929,11 +929,15 @@
         return;
       }
 
-      const colors = ['#F0DDD6','#E4EDDE','#EDE4D8','#D6E8DA','#EDD5CC'];
       body.innerHTML = carrito.map((item, i) => `
         <div class="cart-item">
-          <div class="cart-item-color" style="background:${colors[i % colors.length]}">
-            <div style="width:16px;height:22px;background:var(--verde);border-radius:50% 0 50% 0;opacity:0.6;"></div>
+          <div class="cart-item-color" style="overflow:hidden; border-radius:50%;">
+            ${item.img
+              ? `<img src="${item.img}" style="width:44px;height:44px;object-fit:cover;border-radius:50%;" />`
+              : `<div style="width:44px;height:44px;background:${item.color};border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                  <div style="width:16px;height:22px;background:var(--verde);border-radius:50% 0 50% 0;opacity:0.6;"></div>
+                </div>`
+            }
           </div>
           <div class="cart-item-info">
             <div class="cart-item-name">${item.nombre}</div>
