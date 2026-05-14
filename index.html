@@ -818,7 +818,7 @@
               activo: activo?.trim()
             };
           })
-          .filter(p => p.activo === 'si'); // solo muestra los activos
+          .filter(p => p.activo?.toLowerCase().trim() === 'si'); // solo muestra los activos
 
         cargarProductos();
       } catch (e) {
