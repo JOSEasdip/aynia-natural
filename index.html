@@ -794,39 +794,37 @@
     // "img" puede ser una URL de imagen o déjala vacía ("") para el placeholder.
     // "color" es el color de fondo del placeholder (en hex).
 
-    const PRODUCTOS = [
-      {
-        id: 1,
-        nombre: "Kaiak urbe eau de toilette masculino ",
-        categoria: "Fragancias",
-        descripcion: "Fragancia masculina aromática herbal de intensidad moderada. Notas de salida de menta y notas verdes, corazón de geranio, albahaca y lavanda, fondo de ámbar, sándalo y copaíba. Con ingredientes de la biodiversidad brasileña. 100ml",
-        precio: 79.80,
-        img: "img/Kaiak-urbe.webp",
-        color: "#D6E8DA"
-      },
-      {
-        id: 2,
-        nombre: "Perfume Natura Una",
-        categoria: "Fragancias",
-        descripcion: "Fragancia oriental floral con rosas turcas, sándalo y vainilla bourbon. 75ml",
-        precio: 145.00,
-        img: "",
-        color: "#E4EDDE"
-      },
-      {
-        id: 3,
-        nombre: "Chronos Gel Hidratante",
-        categoria: "Rostro",
-        descripcion: "Gel antienvejecimiento con activos naturales. Reduce líneas finas. 40g",
-        precio: 112.00,
-        img: "",
-        color: "#EDE4D8"
-      },
-      // ── SLOTS VACÍOS (puedes reemplazarlos con productos reales) ──
-      { id: 4, vacio: true },
-      { id: 5, vacio: true },
-      { id: 6, vacio: true },
-    ];
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR9WuAiN3nbvkjGkqD33RDPyHn26I4SGqWcd9WRZNJ7dwNV2coQB6tidtO2DJZVUK84DNJv6yvSebjJ/pub?gid=0&single=true&output=tsv';
+
+    let PRODUCTOS = [];
+
+    async function cargarProductos() {
+      try {
+        const res = await fetch(SHEET_URL);
+        const csv = await res.text();
+        const filas = csv.trim().split('\n').slice(1); // salta la primera fila (títulos)
+
+        PRODUCTOS = filas
+          .map(fila => {
+            const [id, nombre, categoria, descripcion, precio, img, color, activo] = fila.split('\t');
+            return {
+              id: Number(id),
+              nombre: nombre?.trim(),
+              categoria: categoria?.trim(),
+              descripcion: descripcion?.trim(),
+              precio: parseFloat(precio),
+              img: img?.trim(),
+              color: color?.trim() || '#F0DDD6',
+              activo: activo?.trim()
+            };
+          })
+          .filter(p => p.activo === 'si'); // solo muestra los activos
+
+        cargarProductos();
+      } catch (e) {
+        console.error('Error cargando productos:', e);
+      }
+    }
 
     // ── CARRITO ────────────────────────────────────────────────────
     let carrito = [];
