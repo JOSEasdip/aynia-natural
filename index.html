@@ -806,7 +806,7 @@
 
         PRODUCTOS = filas
           .map(fila => {
-            const [id, nombre, categoria, descripcion, precio, img, color, activo] = fila.split('\t');
+            cconst [id, nombre, categoria, descripcion, precio, img, activo] = fila.split('\t');
             return {
               id: Number(id),
               nombre: nombre?.trim(),
