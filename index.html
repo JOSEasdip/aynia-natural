@@ -820,7 +820,7 @@
           })
           .filter(p => p.activo?.toLowerCase().trim() === 'si'); // solo muestra los activos
 
-        renderProductos();  
+        renderProductos();
         actualizarContador();
       } catch (e) {
         console.error('Error cargando productos:', e);
@@ -1014,8 +1014,7 @@
     }
 
     // ── INIT ──
-    renderProductos();
-    actualizarContador();
+    cargarProductos();
   </script>
 
   <!-- Botón flotante WhatsApp -->
