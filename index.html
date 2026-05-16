@@ -815,7 +815,7 @@
               precio: parseFloat(precio),
               img: img?.trim(),
               color: '#F0DDD6',
-              activo: activo?.trim()
+              activo: activo?.replace(/\r/g, '').toLowerCase().trim(),
             };
           })
           .filter(p => p.activo?.toLowerCase().trim() === 'si'); // solo muestra los activos
