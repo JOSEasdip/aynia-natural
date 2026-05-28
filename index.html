@@ -906,40 +906,6 @@
     // ── CARRITO ────────────────────────────────────────────────────
     let carrito = [];
 
-    function renderProductos() {
-      const grid = document.getElementById('products-grid');
-      grid.innerHTML = '';
-      PRODUCTOS.forEach(p => {
-        if (p.vacio) {
-          grid.innerHTML += `
-            <div class="product-card empty-card">
-              <div class="empty-placeholder"><div class="plus-icon">+</div></div>
-              <div class="empty-label">Próximo producto<br>¡pronto disponible!</div>
-            </div>`;
-        } else {
-          const imgContent = p.img
-            ? `<img src="${p.img}" alt="${p.nombre}" />`
-            : `<div class="card-img-placeholder" style="background:${p.color}"><div class="leaf-sm"></div></div>`;
-          grid.innerHTML += `
-            <div class="product-card" id="card-${p.id}">
-              <div class="card-img" style="background:${p.img ? '#eee' : p.color}">
-                ${imgContent}
-                <div class="added-badge" id="badge-${p.id}">✓ Agregado</div>
-              </div>
-              <div class="card-body">
-                <div class="card-cat">${p.categoria.toUpperCase()}</div>
-                <div class="card-name">${p.nombre}</div>
-                <div class="card-desc">${p.descripcion}</div>
-                <div class="card-footer">
-                  <div class="card-price">S/ ${p.precio.toFixed(2)}</div>
-                  <button class="pedir-btn" id="btn-${p.id}" onclick="agregarAlCarrito(${p.id})">Pedir</button>
-                </div>
-              </div>
-            </div>`;
-        }
-      });
-    }
-
     function agregarAlCarrito(id) {
       const producto = PRODUCTOS.find(p => p.id === id);
       if (!producto || producto.vacio) return;
