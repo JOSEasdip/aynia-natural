@@ -704,6 +704,13 @@
       </button>
     </div>
   </nav>
+  <div id="barra-filtros" style="background:var(--crema); border-bottom: 1px solid var(--borde); padding: 10px 32px; display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:89px; z-index:99;">
+  <button class="filtro-btn activo" onclick="filtrar('todos', event)">Todos</button>
+  <button class="filtro-btn" onclick="filtrar('Fragancias', event)">Fragancias</button>
+  <button class="filtro-btn" onclick="filtrar('Limpieza', event)">Limpieza</button>
+  <button class="filtro-btn" onclick="filtrar('Cabello', event)">Cabello</button>
+  <button class="filtro-btn" onclick="filtrar('Crema Hidratante', event)">Crema Hidratante</button>
+</div>
 
   <!-- ── HERO ── -->
   <section style="background: var(--rosa);">
@@ -888,7 +895,7 @@
       }
     }
 
-    function filtrar(categoria) {
+    function filtrar(categoria, e) {
       categoriaActiva = categoria;
       mostrarTodos = false;
 
