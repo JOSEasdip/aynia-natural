@@ -814,6 +814,8 @@
     const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR9WuAiN3nbvkjGkqD33RDPyHn26I4SGqWcd9WRZNJ7dwNV2coQB6tidtO2DJZVUK84DNJv6yvSebjJ/pub?gid=0&single=true&output=tsv';
 
     let PRODUCTOS = [];
+    let categoriaActiva = 'todos';
+    let mostrarTodos = false;
 
     async function cargarProductos() {
       try {
@@ -837,69 +839,68 @@
           })
           .filter(p => p.activo?.toLowerCase().trim() === 'si'); // solo muestra los activos
 
-        let categoriaActiva = 'todos';
-        let mostrarTodos = false;
-
-        function renderProductos() {
-          const grid = document.getElementById('products-grid');
-          grid.innerHTML = '';
-
-          const filtrados = categoriaActiva === 'todos'
-            ? PRODUCTOS
-            : PRODUCTOS.filter(p => p.categoria === categoriaActiva);
-
-          const visibles = mostrarTodos ? filtrados : filtrados.slice(0, 16);
-
-          visibles.forEach(p => {
-            const imgContent = p.img
-              ? `<img src="${p.img}" alt="${p.nombre}" />`
-              : `<div class="card-img-placeholder" style="background:${p.color}"><div class="leaf-sm"></div></div>`;
-
-            grid.innerHTML += `
-              <div class="product-card" id="card-${p.id}">
-                <div class="card-img" style="background:${p.img ? '#eee' : p.color}">
-                  ${imgContent}
-                  <div class="added-badge" id="badge-${p.id}">✓ Agregado</div>
-                </div>
-                <div class="card-body">
-                  <div class="card-cat">${p.categoria.toUpperCase()}</div>
-                  <div class="card-name">${p.nombre}</div>
-                  <div class="card-desc">${p.descripcion}</div>
-                  <div class="card-footer">
-                    <div class="card-price">S/ ${p.precio.toFixed(2)}</div>
-                    <button class="pedir-btn" id="btn-${p.id}" onclick="agregarAlCarrito(${p.id})">Pedir</button>
-                  </div>
-                </div>
-              </div>`;
-          });
-
-          // Botón ver más
-          const verMasDiv = document.getElementById('ver-mas-container');
-          if (filtrados.length > 16 && !mostrarTodos) {
-            verMasDiv.style.display = 'flex';
-          } else {
-            verMasDiv.style.display = 'none';
-          }
-        }
-
-        function filtrar(categoria) {
-          categoriaActiva = categoria;
-          mostrarTodos = false;
-
-          document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
-          event.target.classList.add('activo');
-
-          renderProductos();
-        }
-
-        function verMas() {
-          mostrarTodos = true;
-          renderProductos();
-        }
+        renderProductos();
         actualizarContador();
       } catch (e) {
         console.error('Error cargando productos:', e);
       }
+    }
+
+    function renderProductos() {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+
+      const filtrados = categoriaActiva === 'todos'
+        ? PRODUCTOS
+        : PRODUCTOS.filter(p => p.categoria === categoriaActiva);
+
+      const visibles = mostrarTodos ? filtrados : filtrados.slice(0, 16);
+
+      visibles.forEach(p => {
+        const imgContent = p.img
+          ? `<img src="${p.img}" alt="${p.nombre}" />`
+          : `<div class="card-img-placeholder" style="background:${p.color}"><div class="leaf-sm"></div></div>`;
+
+        grid.innerHTML += `
+          <div class="product-card" id="card-${p.id}">
+            <div class="card-img" style="background:${p.img ? '#eee' : p.color}">
+              ${imgContent}
+              <div class="added-badge" id="badge-${p.id}">✓ Agregado</div>
+            </div>
+            <div class="card-body">
+              <div class="card-cat">${p.categoria.toUpperCase()}</div>
+              <div class="card-name">${p.nombre}</div>
+              <div class="card-desc">${p.descripcion}</div>
+              <div class="card-footer">
+                <div class="card-price">S/ ${p.precio.toFixed(2)}</div>
+                <button class="pedir-btn" id="btn-${p.id}" onclick="agregarAlCarrito(${p.id})">Pedir</button>
+              </div>
+            </div>
+          </div>`;
+      });
+
+      // Botón ver más
+      const verMasDiv = document.getElementById('ver-mas-container');
+      if (filtrados.length > 16 && !mostrarTodos) {
+        verMasDiv.style.display = 'flex';
+      } else {
+        verMasDiv.style.display = 'none';
+      }
+    }
+
+    function filtrar(categoria) {
+      categoriaActiva = categoria;
+      mostrarTodos = false;
+
+      document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+      event.target.classList.add('activo');
+
+      renderProductos();
+    }
+
+    function verMas() {
+      mostrarTodos = true;
+      renderProductos();
     }
 
     // ── CARRITO ────────────────────────────────────────────────────
